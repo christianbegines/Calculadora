@@ -18,14 +18,14 @@ import javax.swing.*;
  */
 public class Calculadora extends JFrame {
 
-    private JButton suma;
+    private JButton suma,contar;
     private JButton resta;
     private JButton division;
     private JButton multiplicar;
     private Container panelOperandos, panelOperaciones, panelResultado;
     private JLabel o1, o2, r;
     private JTextField operando1, operando2, resultado;
-
+    private int i=0;
     public Calculadora() {
         super("Calculadora");
         setSize(600, 300);
@@ -42,7 +42,7 @@ public class Calculadora extends JFrame {
         this.add(panelOperandos);
         this.add(panelOperaciones);
         this.add(panelResultado);
-
+        contar=new JButton("Pulsado"+i);
         suma = new JButton("Suma");
         resta = new JButton("Resta");
         division = new JButton("Dividir");
@@ -55,12 +55,13 @@ public class Calculadora extends JFrame {
         o2 = new JLabel("Operando 2");
         r = new JLabel("Resultado");
         resultado.setEnabled(false);
-
-        suma.addActionListener(new leerOperando1());
-        resta.addActionListener(new leerOperando1());
-        multiplicar.addActionListener(new leerOperando1());
-        division.addActionListener(new leerOperando1());
-
+        
+        suma.addActionListener(new HacerOperaciones());
+        resta.addActionListener(new HacerOperaciones());
+        multiplicar.addActionListener(new HacerOperaciones());
+        division.addActionListener(new HacerOperaciones());
+        
+        
         suma.setActionCommand("S");
         resta.setActionCommand("R");
         division.setActionCommand("D");
@@ -82,10 +83,11 @@ public class Calculadora extends JFrame {
 
     }
 
-    class leerOperando1 implements ActionListener {
+    class HacerOperaciones implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            
             Float f = new Float(operando1.getText());
             float valor = f.floatValue();
             Float f1 = new Float(operando2.getText());
