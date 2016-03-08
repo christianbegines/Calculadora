@@ -18,31 +18,35 @@ import javax.swing.*;
  */
 public class Calculadora extends JFrame {
 
-    private JButton suma,contar;
-    private JButton resta;
-    private JButton division;
-    private JButton multiplicar;
-    private Container panelOperandos, panelOperaciones, panelResultado;
+    private JButton suma;
+    private JButton resta,porcentaje;
+    private JButton division,factorial;
+    private JButton multiplicar,potencia;
+    private Container panelOperandos, panelOperaciones, panelResultado,panelResultados;
     private JLabel o1, o2, r;
     private JTextField operando1, operando2, resultado;
     private int i=0;
+    CalculadoraInterna calculador;
     public Calculadora() {
         super("Calculadora");
+        calculador= new CalculadoraInterna();       
         setSize(600, 300);
         this.setLayout(new GridLayout(3, 1));
-
+        
         this.panelOperandos = new JPanel();
         this.panelOperaciones = new JPanel();
         this.panelResultado = new JPanel();
+        this.panelResultado= new JPanel();
 
         panelOperandos.setLayout(new FlowLayout(FlowLayout.LEFT, 40, 20));
         panelOperaciones.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 50));
         panelResultado.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 50));
+        //panelResultados.setLayout(new FlowLayout(FlowLayout.LEFT,60,50));
 
         this.add(panelOperandos);
         this.add(panelOperaciones);
         this.add(panelResultado);
-        contar=new JButton("Pulsado"+i);
+       
         suma = new JButton("Suma");
         resta = new JButton("Resta");
         division = new JButton("Dividir");
@@ -86,28 +90,25 @@ public class Calculadora extends JFrame {
     class HacerOperaciones implements ActionListener {
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-            
-            Float f = new Float(operando1.getText());
-            float valor = f.floatValue();
-            Float f1 = new Float(operando2.getText());
-            float valor1 = f1.floatValue();
+        public void actionPerformed(ActionEvent e) {                                           
             String s = (String) e.getActionCommand();
-
+            String op1=operando1.getText();
+            String op2= operando2.getText();
+            double valor =0;
             if (s.equals("S")) {
-                valor = f + f1;
+                valor=calculador.Sumar(op1,op2);
             }
             if (s.equals("R")) {
-                valor = f - f1;
+                valor=calculador.Restar(op1,op2);
             }
             if (s.equals("D")) {
-                valor = f / f1;
+                valor=calculador.Dividir(op1,op2);
             }
             if (s.equals("M")) {
-                valor = f * f1;
+               valor=calculador.Multiplicar(op1, op2);
             }
             resultado.setEnabled(true);
-            resultado.setText(Float.toString(valor));
+            resultado.setText(Double.toString(valor));
         }
 
     }
