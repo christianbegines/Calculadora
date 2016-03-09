@@ -63,4 +63,24 @@ public class CalculadoraInterna {
         
         
     }
+    
+    public double factorial(String x){
+        double factorial=1;
+        Double f = new Double(x);
+        while(f!=0) {
+            factorial=factorial*f;
+            f--;
+        }
+        return factorial;
+        
+    }
+    
+    public double porcentaje(String x,String y){
+        double f= new Double (x);
+        double f1 = new Double (y);
+        Double r = new Double((f*f1)/100);
+        double res= r.doubleValue();
+        return res;
+        
+    }
 }
