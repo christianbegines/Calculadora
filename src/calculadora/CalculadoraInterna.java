@@ -53,34 +53,33 @@ public class CalculadoraInterna {
         double res = r.doubleValue();
         return res;
     }
-    
-    public double Exponencial(String x,String y){
+
+    public double Exponencial(String x, String y) {
         Double f = new Double(x);
         Double f1 = new Double(y);
-        Double r = new Double(Math.pow(f,f1));
-        double res=r.doubleValue();
-        return res ;
-        
-        
+        Double r = new Double(Math.pow(f, f1));
+        double res = r.doubleValue();
+        return res;
+
     }
-    
-    public double factorial(String x){
-        double factorial=1;
+
+    public double factorial(String x) {
+        double factorial = 1;
         Double f = new Double(x);
-        while(f!=0) {
-            factorial=factorial*f;
+        while (f != 0) {
+            factorial = factorial * f;
             f--;
         }
         return factorial;
-        
+
     }
-    
-    public double porcentaje(String x,String y){
-        double f= new Double (x);
-        double f1 = new Double (y);
-        Double r = new Double((f*f1)/100);
-        double res= r.doubleValue();
+
+    public double porcentaje(String x, String y) {
+        double f = new Double(x);
+        double f1 = new Double(y);
+        Double r = new Double((f * f1) / 100);
+        double res = r.doubleValue();
         return res;
-        
+
     }
 }
