@@ -22,16 +22,17 @@ public class Calculadora extends JFrame {
     private JButton resta, porcentaje;
     private JButton division, factorial;
     private JButton multiplicar, potencia;
-    private Container panelOperandos, panelOperaciones1, panelResultado, panelResultados, panelOperaciones2;
-    private JLabel o1, o2, r;
+    private Container panelOperandos, panelOperaciones1, panelResultado, panelResultados, panelOperaciones2,panelArea;
+    private JLabel o1, o2, r,operaciones;
     private JTextField operando1, operando2, resultado;
     CalculadoraInterna calculador;
+    private JTextArea  resultados;
 
     public Calculadora() {
         super("Calculadora");
         calculador = new CalculadoraInterna();
-        setSize(700, 400);
-        this.setLayout(new GridLayout(4, 1));
+        setSize(700, 700);
+        this.setLayout(new GridLayout(5, 1));
 
         this.panelOperandos = new JPanel();
         this.panelOperaciones1 = new JPanel();
@@ -39,16 +40,21 @@ public class Calculadora extends JFrame {
         this.panelResultado = new JPanel();
         this.panelResultados = new JPanel();
         
+        
         panelOperandos.setLayout(new FlowLayout(FlowLayout.LEFT, 40, 20));
         panelOperaciones1.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 50));
         panelOperaciones2.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 50));
-        panelResultado.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 50));
-        panelResultados.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 50));
+        panelResultado.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 20));
+        panelResultados.setLayout(new FlowLayout(FlowLayout.LEFT, 40,30));
+        
+        
+        
 
         this.add(panelOperandos);
         this.add(panelOperaciones1);
         this.add(panelOperaciones2);
         this.add(panelResultado);
+        
 
         suma = new JButton("Suma");
         resta = new JButton("Resta");
@@ -57,14 +63,17 @@ public class Calculadora extends JFrame {
         potencia = new JButton("Potencia");
         porcentaje = new JButton("Porcentaje");
         factorial = new JButton("Factorial");
+        resultados= new JTextArea(10,10);
 
         operando1 = new JTextField(7);
         operando2 = new JTextField(7);
         resultado = new JTextField(7);
+        
 
         o1 = new JLabel("Operando 1");
         o2 = new JLabel("Operando 2");
         r = new JLabel("Resultado");
+        operaciones= new JLabel("Operaciones");
         resultado.setEnabled(false);
 
         suma.addActionListener(new HacerOperaciones());
@@ -96,11 +105,14 @@ public class Calculadora extends JFrame {
         panelOperaciones2.add(factorial);
         panelResultado.add(r);
         panelResultado.add(resultado);
+        panelResultado.add(operaciones);
+        panelResultado.add(resultados);
+        
         setVisible(true);
         setResizable(false);
 
     }
-
+    
     class HacerOperaciones implements ActionListener {
 
         @Override
@@ -108,7 +120,7 @@ public class Calculadora extends JFrame {
             String s = (String) e.getActionCommand();
             String op1 = operando1.getText();
             String op2 = operando2.getText();
-            double valor = 0;
+            double valor = 0;        
             if (s.equals("S")) {
                 valor = calculador.Sumar(op1, op2);
             }
