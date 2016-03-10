@@ -27,7 +27,8 @@ public class Calculadora extends JFrame {
     private JTextField operando1, operando2, resultado;
     CalculadoraInterna calculador;
     private JTextArea resultados;
-    int contadorOperaciones=0;
+    private JScrollPane scroll;
+    int contadorOperaciones = 0;
 
     public Calculadora() {
         super("Calculadora");
@@ -60,13 +61,15 @@ public class Calculadora extends JFrame {
         porcentaje = new JButton("Porcentaje");
         factorial = new JButton("Factorial");
         resultados = new JTextArea(10, 10);
+        scroll = new JScrollPane(resultados);
+        scroll.createVerticalScrollBar();
 
         operando1 = new JTextField(7);
         operando2 = new JTextField(7);
-        resultado = new JTextField(7);
+        resultado = new JTextField(10);
 
-        o1 = new JLabel("Operando 1");
-        o2 = new JLabel("Operando 2");
+        o1 = new JLabel("Operando X");
+        o2 = new JLabel("Operando Y");
         r = new JLabel("Resultado");
         operaciones = new JLabel("Operaciones");
         resultado.setEnabled(false);
@@ -101,51 +104,64 @@ public class Calculadora extends JFrame {
         panelResultado.add(r);
         panelResultado.add(resultado);
         panelResultado.add(operaciones);
-        panelResultado.add(resultados);
+        //panelResultado.add(resultados);
+        panelResultado.add(scroll);
 
         setVisible(true);
-        setResizable(false);
 
     }
 
     class HacerOperaciones implements ActionListener {
-   
+
         String dato;
+
         @Override
         public void actionPerformed(ActionEvent e) {
             String tipoOperacion = (String) e.getActionCommand();
             String op1 = operando1.getText();
             String op2 = operando2.getText();
             double valor = 0;
-            contadorOperaciones++;
-            if (tipoOperacion.equals("+")) {
-                valor = calculador.Sumar(op1, op2);
-                
+            try {
+                if (!op1.isEmpty() && !op2.isEmpty()) {
+                    
+                    operando2.setText(" ");
+                    if (tipoOperacion.equals("+")) {
+                        valor = calculador.Sumar(op1, op2);
+                    }
+                    if (tipoOperacion.equals("-")) {
+                        valor = calculador.Restar(op1, op2);
+                    }
+                    if (tipoOperacion.equals("/")) {
+                        valor = calculador.Dividir(op1, op2);
+                    }
+                    if (tipoOperacion.equals("*")) {
+                        valor = calculador.Multiplicar(op1, op2);
+                    }
+                    if (tipoOperacion.equals("^")) {
+                        valor = calculador.Exponencial(op1, op2);
+                    }
+                    if (tipoOperacion.equals("%")) {
+                        valor = calculador.porcentaje(op1, op2);
+                    }
+                    if (tipoOperacion.equals("!")) {
+                        valor = calculador.factorial(op1);
+                    }
+                    operando1.setText(" ");
+                    operando2.setText(" ");
+                    dato = "Op" + contadorOperaciones + ": " + op1 + tipoOperacion + op2 + "=" + valor + "\n";
+                    resultados.append(dato);
+
+                    resultado.setText(Double.toString(valor));
+                } else {
+                    resultado.setText("Campos vacios");
+                }
+
+            } catch (ErrorValores p) {
+                resultado.setText(p.getMessage());
+                operando1.setText(" ");
+                operando2.setText(" ");
             }
-            if (tipoOperacion.equals("-")) {
-                valor = calculador.Restar(op1, op2);
-            }
-            if (tipoOperacion.equals("/")) {
-                valor = calculador.Dividir(op1, op2);
-            }
-            if (tipoOperacion.equals("*")) {
-                valor = calculador.Multiplicar(op1, op2);
-            }
-            if (tipoOperacion.equals("^")) {
-                valor = calculador.Exponencial(op1, op2);
-            }
-            if (tipoOperacion.equals("%")) {
-                valor = calculador.porcentaje(op1, op2);
-            }
-            if (tipoOperacion.equals("!")) {
-                valor = calculador.factorial(op1);
-            }
-            operando1.setText(" ");
-            operando2.setText(" ");
-            dato="Op"+contadorOperaciones+": "+op1+tipoOperacion+op2+"="+valor+"\n";
-            resultados.append(dato);
             resultado.setEnabled(true);
-            resultado.setText(Double.toString(valor));
         }
 
     }
