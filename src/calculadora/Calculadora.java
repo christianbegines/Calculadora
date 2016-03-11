@@ -122,9 +122,8 @@ public class Calculadora extends JFrame {
             String op2 = operando2.getText();
             double valor = 0;
             try {
-                if (!op1.isEmpty() && !op2.isEmpty()) {
+                if (!op1.isEmpty() && !op2.isEmpty()) {                    
                     
-                    operando2.setText(" ");
                     if (tipoOperacion.equals("+")) {
                         valor = calculador.Sumar(op1, op2);
                     }
@@ -146,20 +145,21 @@ public class Calculadora extends JFrame {
                     if (tipoOperacion.equals("!")) {
                         valor = calculador.factorial(op1);
                     }
-                    operando1.setText(" ");
-                    operando2.setText(" ");
+                    operando1.setText("");
+                    operando2.setText("");
                     dato = "Op" + contadorOperaciones + ": " + op1 + tipoOperacion + op2 + "=" + valor + "\n";
                     resultados.append(dato);
 
                     resultado.setText(Double.toString(valor));
+                    contadorOperaciones++;
                 } else {
                     resultado.setText("Campos vacios");
                 }
 
             } catch (ErrorValores p) {
                 resultado.setText(p.getMessage());
-                operando1.setText(" ");
-                operando2.setText(" ");
+                operando1.setText("");
+                operando2.setText("");
             }
             resultado.setEnabled(true);
         }

@@ -15,21 +15,20 @@ public class CalculadoraInterna {
     }
 
     public double Sumar(String x, String y) {
+        double res;
         Double f = new Double(x);
         Double f1 = new Double(y);
-        Double r = new Double(f + f1);
-        double res = r.doubleValue();
+        Double r = (f + f1);
 
-        return res;
+        return r;
     }
 
     public double Restar(String x, String y) {
         Double f = new Double(x);
         Double f1 = new Double(y);
-        Double r = new Double(f - f1);
-        double res = r.doubleValue();
+        Double r = (f - f1);
 
-        return res;
+        return r;
 
     }
 
@@ -39,27 +38,25 @@ public class CalculadoraInterna {
         if (f1 == 0) {
             throw new ErrorValores("operando Y vale 0");
         }
+        Double r = (f / f1);
 
-        Double r = new Double(f / f1);
-        double res = r.doubleValue();
-
-        return res;
+        return r;
     }
 
     public double Multiplicar(String x, String y) {
         Double f = new Double(x);
         Double f1 = new Double(y);
-        Double r = new Double(f * f1);
-        double res = r.doubleValue();
-        return res;
+        Double r = (f * f1);
+
+        return r;
     }
 
     public double Exponencial(String x, String y) {
         Double f = new Double(x);
         Double f1 = new Double(y);
-        Double r = new Double(Math.pow(f, f1));
-        double res = r.doubleValue();
-        return res;
+        Double r = (Math.pow(f, f1));
+
+        return r;
 
     }
 
@@ -77,9 +74,9 @@ public class CalculadoraInterna {
     public double porcentaje(String x, String y) {
         double f = new Double(x);
         double f1 = new Double(y);
-        Double r = new Double((f * f1) / 100);
-        double res = r.doubleValue();
-        return res;
+        Double r = ((f * f1) / 100);
+
+        return r;
 
     }
 }
